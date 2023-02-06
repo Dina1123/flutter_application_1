@@ -20,44 +20,20 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextButton(
             onPressed: () async {
               url = 'http://10.0.2.2:5000/predict';
               data = await (fetchdata(url));
               print(data);
-              print("0000000000000000000");
+              print("Third");
             },
-            child: Text('Predict'),
+            child: Center(child: Text('Predict')),
           ),
           Text(data.toString())
         ],
       ),
     );
   }
-}
-
-fetchdata(String url) async {
-  print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-  http.Response response = await http.get(Uri.parse(url));
-
-  print("hhhhhhhhhhhhhhhhhfffffffffffffffffffffffffffhhhhhhhhhhhh");
-  print(response.body);
-
-  try {
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-      // var new_output = json.decode(response.body);
-      // var data = jsonDecode(response.body);
-      // print(data);
-    } else {
-      print(response.body);
-      return 'failed';
-    }
-  } catch (e) {
-    print(response.body);
-    return 'failed';
-  }
-  // print("hhhhhhhhhhhhhhhhhfffffffffffffffffffffffffffhhhhhhhhhhhh");
-  // return response.body;
 }
