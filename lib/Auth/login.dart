@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Auth/signup.dart';
 import 'package:flutter_application_1/screens/homepage.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 class Login extends StatefulWidget {
@@ -18,25 +19,20 @@ class _LoginState extends State<Login> {
     return Scaffold(
         body: Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               height: 200,
-              child: Image.network(
-                  'http://blog.back4app.com/wp-content/uploads/2017/11/logo-b4a-1-768x175-1.png'),
-            ),
-            Center(
-              child: const Text('Flutter on Back4App',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              //  child: Image.asset('assets/images/logo.png'),
             ),
             SizedBox(
-              height: 16,
+              height: 32,
             ),
             Center(
-              child: const Text('User Login/Logout',
-                  style: TextStyle(fontSize: 16)),
+              child: const Text('Login',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             ),
             SizedBox(
               height: 16,
@@ -44,13 +40,13 @@ class _LoginState extends State<Login> {
             TextField(
               controller: controllerUsername,
               enabled: !isLoggedIn,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.emailAddress,
               textCapitalization: TextCapitalization.none,
               autocorrect: false,
               decoration: InputDecoration(
                   border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black)),
-                  labelText: 'Username'),
+                      borderSide: BorderSide(color: Colors.grey)),
+                  labelText: 'Email'),
             ),
             SizedBox(
               height: 8,
@@ -64,7 +60,7 @@ class _LoginState extends State<Login> {
               autocorrect: false,
               decoration: InputDecoration(
                   border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black)),
+                      borderSide: BorderSide(color: Colors.grey)),
                   labelText: 'Password'),
             ),
             SizedBox(
@@ -72,9 +68,15 @@ class _LoginState extends State<Login> {
             ),
             Container(
               height: 50,
-              child: TextButton(
-                child: const Text('Login'),
-                onPressed: isLoggedIn ? null : () => doUserLogin(),
+              child: ElevatedButton(
+                onPressed: () async {
+                  EasyLoading.show(
+                      status: "Loading...",
+                      maskType: EasyLoadingMaskType.clear);
+
+                  await doUserLogin();
+                },
+                child: Text('LOGIN'),
               ),
             ),
             SizedBox(
@@ -83,22 +85,12 @@ class _LoginState extends State<Login> {
             Container(
               height: 50,
               child: TextButton(
-                  child: const Text('Dont have account ? register now'),
+                  child: const Text('Don\'t have an account? Sign up now'),
                   onPressed: () {
                     Navigator.push(
                         context, MaterialPageRoute(builder: (C) => SignUp()));
                   }),
             ),
-            SizedBox(
-              height: 16,
-            ),
-            Container(
-              height: 50,
-              child: TextButton(
-                child: const Text('Logout'),
-                onPressed: !isLoggedIn ? null : () => doUserLogout(),
-              ),
-            )
           ],
         ),
       ),
@@ -154,6 +146,7 @@ class _LoginState extends State<Login> {
     var response = await user.login();
 
     if (response.success) {
+      EasyLoading.dismiss();
       Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
 
       // showSuccess("User was successfully login!");

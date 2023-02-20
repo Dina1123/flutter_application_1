@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Auth/login.dart';
 import 'package:flutter_application_1/screens/homepage.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 class SignUp extends StatefulWidget {
@@ -24,8 +25,8 @@ class _SignUpState extends State<SignUp> {
           children: [
             Container(
               height: 200,
-              child: Image.network(
-                  'http://blog.back4app.com/wp-content/uploads/2017/11/logo-b4a-1-768x175-1.png'),
+              // child: Image.network(
+              //     'http://blog.back4app.com/wp-content/uploads/2017/11/logo-b4a-1-768x175-1.png'),
             ),
             Center(
               child: const Text('Flutter on Back4App',
@@ -84,9 +85,14 @@ class _SignUpState extends State<SignUp> {
             Container(
               height: 50,
               child: TextButton(
-                child: const Text('Sign Up'),
-                onPressed: () => doUserRegistration(),
-              ),
+                  child: const Text('Sign Up'),
+                  onPressed: () async {
+                    EasyLoading.show(
+                        status: "Loading...",
+                        maskType: EasyLoadingMaskType.clear);
+
+                    await doUserRegistration();
+                  }),
             ),
             Container(
               height: 50,
@@ -156,6 +162,7 @@ class _SignUpState extends State<SignUp> {
     var response = await user.signUp();
 
     if (response.success) {
+      EasyLoading.dismiss();
       Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
       //showSuccess();
     } else {

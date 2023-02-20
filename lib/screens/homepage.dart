@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Auth/login.dart';
 import 'package:flutter_application_1/screens/addJob.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool isLoggedIn = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,10 +38,12 @@ class HomePage extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 50,
+                          backgroundColor: Colors.white,
                           //   backgroundImage: AssetImage('assets/profile_pic.jpg'),
                           child: Icon(
                             Icons.account_circle,
-                            size: 50,
+                            color: Colors.blue[900],
+                            size: 100,
                           ),
                         ),
                         Text(
@@ -87,15 +98,20 @@ class HomePage extends StatelessWidget {
                     onTap: () {},
                   ),
                 ),
-                ListTile(
-                  leading: Icon(Icons.logout, color: Colors.white),
-                  title: Text(
-                    'Logout',
-                    style: Theme.of(context).textTheme.subtitle1.copyWith(
-                          color: Colors.white,
-                        ),
+                Card(
+                  child: ListTile(
+                    leading: Icon(Icons.logout, color: Colors.black),
+                    title: Text(
+                      'Logout',
+                      style: Theme.of(context).textTheme.subtitle1.copyWith(
+                            color: Colors.black,
+                          ),
+                    ),
+                    onTap: () {
+                      EasyLoading.show(status: "Logging out");
+                      doUserLogout();
+                    },
                   ),
-                  onTap: () {},
                 ),
               ],
             ),
@@ -196,5 +212,63 @@ class HomePage extends StatelessWidget {
     } else {
       return [];
     }
+  }
+
+  void doUserLogout() async {
+    final user = await ParseUser.currentUser() as ParseUser;
+    var response = await user.logout();
+
+    if (response.success) {
+      EasyLoading.dismiss();
+      showSuccess("User was successfully logout!");
+      Navigator.push(context, MaterialPageRoute(builder: (C) => Login()));
+      setState(() {
+        isLoggedIn = false;
+      });
+    } else {
+      showError(response.error.message);
+    }
+  }
+
+  void showSuccess(
+    String message,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Success!"),
+          content: Text(message),
+          actions: <Widget>[
+            new TextButton(
+              child: const Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showError(String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Error!"),
+          content: Text(errorMessage),
+          actions: <Widget>[
+            new TextButton(
+              child: const Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
