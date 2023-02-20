@@ -7,8 +7,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application_1/func.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
-
   @override
   State<Home> createState() => _HomeState();
 }
