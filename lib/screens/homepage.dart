@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Auth/login.dart';
 import 'package:flutter_application_1/screens/addJob.dart';
+import 'package:flutter_application_1/screens/jobDetails.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
@@ -62,16 +63,19 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                Card(
-                  child: ListTile(
-                    leading: Icon(Icons.home, color: Colors.black),
-                    title: Text(
-                      'Home',
-                      style: Theme.of(context).textTheme.subtitle1.copyWith(
-                            color: Colors.black,
-                          ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Card(
+                    child: ListTile(
+                      leading: Icon(Icons.home, color: Colors.black),
+                      title: Text(
+                        'Home',
+                        style: Theme.of(context).textTheme.subtitle1.copyWith(
+                              color: Colors.black,
+                            ),
+                      ),
+                      onTap: () {},
                     ),
-                    onTap: () {},
                   ),
                 ),
                 Card(
@@ -132,67 +136,87 @@ class _HomePageState extends State<HomePage> {
                     child: ListView.builder(
                         itemCount: snapshot.data.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Card(
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              side: BorderSide(color: Colors.grey[300]),
-                            ),
-                            child: ListTile(
-                              title: Text(
-                                snapshot.data[index]['title'],
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Roboto',
-                                  color: Colors.blue[900],
-                                ),
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (c) => JobDetails(
+                                          jobTitle: snapshot.data[index]
+                                              ['title'],
+                                          jobDescription: snapshot.data[index]
+                                              ['requirements'],
+                                          posterName: snapshot.data[index]
+                                              ['posterName'],
+                                          date: snapshot.data[index]
+                                                  ['createdAt']
+                                              .toString(),
+                                          jobId: snapshot.data[index]
+                                              ['objectId'])));
+                            },
+                            child: Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                side: BorderSide(color: Colors.grey[300]),
                               ),
-                              subtitle: Container(
-                                padding: EdgeInsets.all(16),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
-                                  color: Colors.grey[200],
+                              child: ListTile(
+                                title: Text(
+                                  snapshot.data[index]['title'],
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Roboto',
+                                    color: Colors.blue[900],
+                                  ),
                                 ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      snapshot.data[index]['requirements'],
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontFamily: 'Open Sans',
-                                        color: Colors.blueGrey[800],
+                                subtitle: Container(
+                                  padding: EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
+                                    color: Colors.grey[200],
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        snapshot.data[index]['requirements'],
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 3,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontFamily: 'Open Sans',
+                                          color: Colors.blueGrey[800],
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(height: 16),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Posted by: ${snapshot.data[index]['posterName']}',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontFamily: 'Roboto',
-                                            color: Colors.grey[600],
+                                      SizedBox(height: 16),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Posted by: ${snapshot.data[index]['posterName']}',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'Roboto',
+                                              color: Colors.grey[600],
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          snapshot.data[index]['createdAt']
-                                              .toString()
-                                              .substring(0, 10),
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontFamily: 'Roboto',
-                                            color: Colors.grey[600],
+                                          Text(
+                                            snapshot.data[index]['createdAt']
+                                                .toString()
+                                                .substring(0, 10),
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'Roboto',
+                                              color: Colors.grey[600],
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

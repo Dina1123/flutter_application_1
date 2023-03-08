@@ -166,6 +166,8 @@ class _SignUpState extends State<SignUp> {
       Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
       //showSuccess();
     } else {
+      EasyLoading.dismiss();
+
       showError(response.error.message);
     }
   }

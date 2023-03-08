@@ -154,6 +154,8 @@ class _LoginState extends State<Login> {
         isLoggedIn = true;
       });
     } else {
+      EasyLoading.dismiss();
+
       showError(response.error.message);
     }
   }
