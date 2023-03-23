@@ -38,6 +38,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   http:
   file_picker: ^5.2.5
+  parse_server_sdk: 3.0.0
+  path_provider:
+  flutter_easyloading: ^3.0.5
 
 dev_dependencies:
   flutter_test:
