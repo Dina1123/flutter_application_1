@@ -12,12 +12,8 @@ import 'package:flutter_application_1/Auth/signUp.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-<<<<<<< HEAD
 import '../screens/home.dart';
 
-=======
->>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
->>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
