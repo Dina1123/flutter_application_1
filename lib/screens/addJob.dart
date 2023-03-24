@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 import 'home.dart';
 
+=======
+<<<<<<< HEAD
+
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:parse_server_sdk/parse_server_sdk.dart';
+
+import 'home.dart';
+
+=======
+import 'package:flutter_application_1/screens/homepage.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:parse_server_sdk/parse_server_sdk.dart';
+
+>>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
+>>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
 class AddJobPage extends StatefulWidget {
   @override
   _AddJobPageState createState() => _AddJobPageState();
@@ -44,8 +60,18 @@ class _AddJobPageState extends State<AddJobPage> {
                       borderSide: BorderSide(),
                     ),
                   ),
+<<<<<<< HEAD
                   validator: (String? value) {
                     if (value!.isEmpty) {
+=======
+<<<<<<< HEAD
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+=======
+                  validator: (String value) {
+                    if (value.isEmpty) {
+>>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
+>>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
                       return 'Please enter a job title';
                     }
                     return null;
@@ -62,8 +88,18 @@ class _AddJobPageState extends State<AddJobPage> {
                       borderSide: BorderSide(),
                     ),
                   ),
+<<<<<<< HEAD
                   validator: (String? value) {
                     if (value!.isEmpty) {
+=======
+<<<<<<< HEAD
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+=======
+                  validator: (String value) {
+                    if (value.isEmpty) {
+>>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
+>>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
                       return 'Please enter job requirements';
                     }
                     return null;
@@ -79,8 +115,18 @@ class _AddJobPageState extends State<AddJobPage> {
                       borderSide: BorderSide(),
                     ),
                   ),
+<<<<<<< HEAD
                   validator: (String? value) {
                     if (value!.isEmpty) {
+=======
+<<<<<<< HEAD
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+=======
+                  validator: (String value) {
+                    if (value.isEmpty) {
+>>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
+>>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
                       return 'Please enter your name';
                     }
                     return null;
@@ -90,7 +136,15 @@ class _AddJobPageState extends State<AddJobPage> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () async {
+<<<<<<< HEAD
                       if (_formKey.currentState!.validate()) {
+=======
+<<<<<<< HEAD
+                      if (_formKey.currentState!.validate()) {
+=======
+                      if (_formKey.currentState.validate()) {
+>>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
+>>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
                         EasyLoading.show(
                             status: "Loading...",
                             maskType: EasyLoadingMaskType.clear);

@@ -70,7 +70,11 @@ class _HomePageState extends State<HomePage> {
                     child: ListTile(
                       leading: Icon(Icons.home, color: Colors.black),
                       title: Text('Home',
+<<<<<<< HEAD
                           style: Theme.of(context).textTheme.titleMedium
+=======
+                          style: Theme.of(context).textTheme.subtitle1
+>>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
                           // .copyWith(
                           //       color: Colors.black,
                           //     ),
@@ -83,7 +87,11 @@ class _HomePageState extends State<HomePage> {
                   child: ListTile(
                     leading: Icon(Icons.account_circle, color: Colors.black),
                     title: Text('Profile',
+<<<<<<< HEAD
                         style: Theme.of(context).textTheme.titleMedium
+=======
+                        style: Theme.of(context).textTheme.subtitle1
+>>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
                         // .copyWith(
                         //       color: Colors.black,
                         //     ),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart'
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Auth/signUp.dart';
@@ -6,6 +7,17 @@ import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 import '../screens/home.dart';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Auth/signUp.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:parse_server_sdk/parse_server_sdk.dart';
+
+<<<<<<< HEAD
+import '../screens/home.dart';
+
+=======
+>>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
+>>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -76,7 +88,15 @@ class _LoginState extends State<Login> {
                       status: "Loading...",
                       maskType: EasyLoadingMaskType.clear);
 
+<<<<<<< HEAD
                   doUserLogin();
+=======
+<<<<<<< HEAD
+                  doUserLogin();
+=======
+                  await doUserLogin();
+>>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
+>>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
                 },
                 child: Text('LOGIN'),
               ),
@@ -151,14 +171,30 @@ class _LoginState extends State<Login> {
       EasyLoading.dismiss();
       Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
 
+<<<<<<< HEAD
       showSuccess("User was successfully login!");
+=======
+<<<<<<< HEAD
+      showSuccess("User was successfully login!");
+=======
+      // showSuccess("User was successfully login!");
+>>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
+>>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
       setState(() {
         isLoggedIn = true;
       });
     } else {
       EasyLoading.dismiss();
 
+<<<<<<< HEAD
       showError(response.error!.message);
+=======
+<<<<<<< HEAD
+      showError(response.error!.message);
+=======
+      showError(response.error.message);
+>>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
+>>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
     }
   }
 
@@ -172,7 +208,15 @@ class _LoginState extends State<Login> {
         isLoggedIn = false;
       });
     } else {
+<<<<<<< HEAD
       showError(response.error!.message);
+=======
+<<<<<<< HEAD
+      showError(response.error!.message);
+=======
+      showError(response.error.message);
+>>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
+>>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
     }
   }
 }
