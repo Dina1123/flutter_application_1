@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Auth/login.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 import '../screens/home.dart';
-import 'login.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -167,7 +165,7 @@ class _SignUpState extends State<SignUp> {
     if (response.success) {
       EasyLoading.dismiss();
       Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
-      showSuccess();
+      //showSuccess();
     } else {
       EasyLoading.dismiss();
 
