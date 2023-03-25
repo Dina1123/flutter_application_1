@@ -15,8 +15,8 @@ class UploadAndPredict extends StatefulWidget {
 class _UploadAndPredictState extends State<UploadAndPredict> {
   @override
   Widget build(BuildContext context) {
-    File? file;
-    String? prediction;
+    File file;
+    String prediction;
     Future<void> uploadPDF(File file) async {
       // Create a multipart request for the PDF file
       final uri = Uri.parse("http://10.0.2.2:5000/predict");
@@ -58,13 +58,13 @@ class _UploadAndPredictState extends State<UploadAndPredict> {
           padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
             onPressed: () async {
-              FilePickerResult? result = await FilePicker.platform.pickFiles();
+              FilePickerResult result = await FilePicker.platform.pickFiles();
 
               if (result != null) {
                 setState(() {
                   file = File(result.files.single.path.toString());
                 });
-                uploadPDF(file!);
+                uploadPDF(file);
 
                 print("kkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
                 print(file);

@@ -159,20 +159,14 @@ class _LoginState extends State<Login> {
       Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
 
       showSuccess("User was successfully login!");
-=======
-<<<<<<< HEAD
-      showSuccess("User was successfully login!");
-=======
-      // showSuccess("User was successfully login!");
->>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
->>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
+
       setState(() {
         isLoggedIn = true;
       });
     } else {
       EasyLoading.dismiss();
 
-      showError(response.error!.message);
+      showError(response.error.message);
     }
   }
 
@@ -186,7 +180,7 @@ class _LoginState extends State<Login> {
         isLoggedIn = false;
       });
     } else {
-      showError(response.error!.message);
+      showError(response.error.message);
     }
   }
 }

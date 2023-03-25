@@ -50,18 +50,10 @@ class _AddJobPageState extends State<AddJobPage> {
                       borderSide: BorderSide(),
                     ),
                   ),
-<<<<<<< HEAD
-                  validator: (String? value) {
-                    if (value!.isEmpty) {
-=======
-<<<<<<< HEAD
-                  validator: (String? value) {
-                    if (value!.isEmpty) {
-=======
+                  
                   validator: (String value) {
                     if (value.isEmpty) {
->>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
->>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
+
                       return 'Please enter a job title';
                     }
                     return null;
@@ -80,12 +72,13 @@ class _AddJobPageState extends State<AddJobPage> {
                   ),
                   validator: (String value) {
                     if (value.isEmpty) {
->>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
->>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
+                  
+                   
+                  
                       return 'Please enter job requirements';
                     }
                     return null;
-                  },
+                  }
                 ),
                 SizedBox(height: 24),
                 TextFormField(
@@ -99,8 +92,7 @@ class _AddJobPageState extends State<AddJobPage> {
                   ),
                   validator: (String value) {
                     if (value.isEmpty) {
->>>>>>> c3c95183268dd9ed59de5a81e8de26854e32d8fd
->>>>>>> 506770de86e18721f5ecba7a55d9dc2f4fca08c2
+              
                       return 'Please enter your name';
                     }
                     return null;
@@ -110,12 +102,7 @@ class _AddJobPageState extends State<AddJobPage> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () async {
-<<<<<<< HEAD
-                      if (_formKey.currentState!.validate()) {
-=======
-<<<<<<< HEAD
-                      if (_formKey.currentState!.validate()) {
-=======
+
                       if (_formKey.currentState.validate()) {
                         EasyLoading.show(
                             status: "Loading...",

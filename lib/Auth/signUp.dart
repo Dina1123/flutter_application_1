@@ -169,7 +169,7 @@ class _SignUpState extends State<SignUp> {
     } else {
       EasyLoading.dismiss();
 
-      showError(response.error!.message);
+      showError(response.error.message);
     }
   }
 }
