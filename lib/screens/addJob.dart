@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
-
-import 'home.dart';
-
-
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:parse_server_sdk/parse_server_sdk.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'home.dart';
 
 class AddJobPage extends StatefulWidget {
@@ -22,9 +15,11 @@ class _AddJobPageState extends State<AddJobPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController _jobTitleController = TextEditingController();
+
   final TextEditingController _jobRequirementsController =
       TextEditingController();
   final TextEditingController _posterNameController = TextEditingController();
+  String _chosenValue;
 
   @override
   Widget build(BuildContext context) {
@@ -41,24 +36,68 @@ class _AddJobPageState extends State<AddJobPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                TextFormField(
-                  controller: _jobTitleController,
-                  decoration: InputDecoration(
-                    labelText: 'Job Title',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(),
+                DropdownButton<String>(
+                  underline: Container(),
+                  icon: Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    size: 18,
+                  ),
+                  value: _chosenValue,
+                  isExpanded: true,
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                  items: ['Data Science', 'DevOps Engineer', 'Web Designing']
+                      .map<DropdownMenuItem<String>>((dynamic value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          // fontSize: getFontSize(
+                          //   15,
+                          // ),
+                          fontFamily: 'Circular Std',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                  hint: Text(
+                    "Job Title",
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      // fontSize: getFontSize(
+                      //   15,
+                      // ),
+                      fontFamily: 'Circular Std',
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
-                  
-                  validator: (String value) {
-                    if (value.isEmpty) {
-
-                      return 'Please enter a job title';
-                    }
-                    return null;
+                  onChanged: (String value) {
+                    setState(() {
+                      _chosenValue = value;
+                    });
                   },
                 ),
+                // TextFormField(
+                //   controller: _jobTitleController,
+                //   decoration: InputDecoration(
+                //     labelText: 'Job Title',
+                //     border: OutlineInputBorder(
+                //       borderRadius: BorderRadius.circular(10),
+                //       borderSide: BorderSide(),
+                //     ),
+                //   ),
+                //   validator: (String value) {
+                //     if (value.isEmpty) {
+                //       return 'Please enter a job title';
+                //     }
+                //     return null;
+                //   },
+                // ),
                 SizedBox(height: 24),
                 TextFormField(
                   controller: _jobRequirementsController,
@@ -72,13 +111,10 @@ class _AddJobPageState extends State<AddJobPage> {
                   ),
                   validator: (String value) {
                     if (value.isEmpty) {
-                  
-                   
-                  
                       return 'Please enter job requirements';
                     }
                     return null;
-                  }
+                  },
                 ),
                 SizedBox(height: 24),
                 TextFormField(
@@ -92,7 +128,6 @@ class _AddJobPageState extends State<AddJobPage> {
                   ),
                   validator: (String value) {
                     if (value.isEmpty) {
-              
                       return 'Please enter your name';
                     }
                     return null;
@@ -102,7 +137,6 @@ class _AddJobPageState extends State<AddJobPage> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () async {
-
                       if (_formKey.currentState.validate()) {
                         EasyLoading.show(
                             status: "Loading...",
@@ -128,12 +162,17 @@ class _AddJobPageState extends State<AddJobPage> {
   }
 
   Future<void> addJob() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     final job = ParseObject('Jobs')
-      ..set('title', _jobTitleController.text)
+      // ..set('title', _jobTitleController.text)
+      ..set('title', _chosenValue)
       ..set('requirements', _jobRequirementsController.text)
+      ..set('posterId', prefs.getString("userId"))
       ..set('posterName', _posterNameController.text);
     var res = await job.save();
     if (res.success) {
+      print(prefs.getString('userId'));
       EasyLoading.dismiss();
       Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
     }

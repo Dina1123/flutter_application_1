@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Auth/login.dart';
+import 'package:flutter_application_1/screens/addJob.dart';
+import 'package:flutter_application_1/screens/applicatios.dart';
+import 'package:flutter_application_1/screens/jobDetails.dart';
+import 'package:flutter_application_1/screens/myJobs.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
-
-import 'addJob.dart';
-import 'jobDetails.dart';
-import '../Auth/login.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -48,18 +49,20 @@ class _HomePageState extends State<HomePage> {
                             size: 100,
                           ),
                         ),
-                        Text('John Doe',
-                            style: Theme.of(context).textTheme.headline1
-                            // .copyWith(
-                            //       color: Colors.black,
-                            //     ),
-                            ),
-                        Text('johndoe@example.com',
-                            style: Theme.of(context).textTheme.subtitle1
-                            // .copyWith(
-                            //       color: Colors.black,
-                            //     ),
-                            ),
+                        Text(
+                          'John Doe',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1
+                              .copyWith(color: Colors.black, fontSize: 17),
+                        ),
+                        Text(
+                          'johndoe@example.com',
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1
+                              .copyWith(color: Colors.black, fontSize: 17),
+                        ),
                       ],
                     ),
                   ),
@@ -69,12 +72,12 @@ class _HomePageState extends State<HomePage> {
                   child: Card(
                     child: ListTile(
                       leading: Icon(Icons.home, color: Colors.black),
-                      title: Text('Home',
-                          style: Theme.of(context).textTheme.titleMedium
-                          // .copyWith(
-                          //       color: Colors.black,
-                          //     ),
-                          ),
+                      title: Text(
+                        'Home',
+                        style: Theme.of(context).textTheme.subtitle1.copyWith(
+                              color: Colors.black,
+                            ),
+                      ),
                       onTap: () {},
                     ),
                   ),
@@ -82,36 +85,51 @@ class _HomePageState extends State<HomePage> {
                 Card(
                   child: ListTile(
                     leading: Icon(Icons.account_circle, color: Colors.black),
-                    title: Text('Profile',
-                        style: Theme.of(context).textTheme.titleMedium
-                        // .copyWith(
-                        //       color: Colors.black,
-                        //     ),
-                        ),
+                    title: Text(
+                      'Profile',
+                      style: Theme.of(context).textTheme.subtitle1.copyWith(
+                            color: Colors.black,
+                          ),
+                    ),
                     onTap: () {},
                   ),
                 ),
                 Card(
                   child: ListTile(
                     leading: Icon(Icons.settings, color: Colors.black),
-                    title: Text('Settings',
-                        style: Theme.of(context).textTheme.subtitle1
-                        // .copyWith(
-                        //       color: Colors.black,
-                        //     ),
-                        ),
+                    title: Text(
+                      'Settings',
+                      style: Theme.of(context).textTheme.subtitle1.copyWith(
+                            color: Colors.black,
+                          ),
+                    ),
                     onTap: () {},
                   ),
                 ),
                 Card(
                   child: ListTile(
+                    leading: Icon(Icons.people, color: Colors.black),
+                    title: Text(
+                      'My Jobs',
+                      style: Theme.of(context).textTheme.subtitle1.copyWith(
+                            color: Colors.black,
+                          ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (c) => MyJobs()));
+                    },
+                  ),
+                ),
+                Card(
+                  child: ListTile(
                     leading: Icon(Icons.logout, color: Colors.black),
-                    title: Text('Logout',
-                        style: Theme.of(context).textTheme.subtitle1
-                        // .copyWith(
-                        //       color: Colors.black,
-                        //     ),
-                        ),
+                    title: Text(
+                      'Logout',
+                      style: Theme.of(context).textTheme.subtitle1.copyWith(
+                            color: Colors.black,
+                          ),
+                    ),
                     onTap: () {
                       EasyLoading.show(status: "Logging out");
                       doUserLogout();
@@ -132,6 +150,27 @@ class _HomePageState extends State<HomePage> {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
+              } else if (!snapshot.hasData || snapshot.data.length == 0) {
+                return Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'images/logo.png',
+                          width: 150,
+                          height: 150,
+                        ),
+                        Text(
+                          'Empty',
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ),
+                );
               } else {
                 return Center(
                     child: ListView.builder(
@@ -159,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                               elevation: 4,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
-                                side: BorderSide(color: Colors.grey.shade300),
+                                side: BorderSide(color: Colors.grey[300]),
                               ),
                               child: ListTile(
                                 title: Text(

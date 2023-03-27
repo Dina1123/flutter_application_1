@@ -3,10 +3,11 @@ import 'package:flutter_application_1/Auth/login.dart';
 import 'package:flutter_application_1/screens/addJob.dart';
 import 'package:flutter_application_1/screens/jobDetails.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'applicatios.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
+
+import 'applicatios.dart';
 
 class MyJobs extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _MyJobsState extends State<MyJobs> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Home Page'),
+          title: Text('My Jobs'),
         ),
         body: FutureBuilder(
             future: getJobs(), // A Future<String> to resolve
@@ -29,6 +30,27 @@ class _MyJobsState extends State<MyJobs> {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
+              } else if (!snapshot.hasData || snapshot.data.length == 0) {
+                return Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'images/logo.png',
+                          width: 150,
+                          height: 150,
+                        ),
+                        Text(
+                          'Empty',
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ),
+                );
               } else {
                 return Center(
                     child: ListView.builder(
@@ -41,13 +63,16 @@ class _MyJobsState extends State<MyJobs> {
                                   MaterialPageRoute(
                                       builder: (c) => Applications(
                                           jobId: snapshot.data[index]
-                                              ['objectId'])));
+                                              ['objectId'],
+                                          jobTitle: snapshot.data[index]
+                                                  ['title']
+                                              .toString())));
                             },
                             child: Card(
                               elevation: 4,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
-                                side: BorderSide(color: Colors.grey.shade300),
+                                side: BorderSide(color: Colors.grey[300]),
                               ),
                               child: ListTile(
                                 title: Text(
